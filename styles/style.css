@@ -1,5 +1,18 @@
 p {
-	font-size: 50px;
+	font-size: 30px;
+}
+
+button {
+	background: #BBFFBB;
+	border: none;
+	border-radius: 15px;
+	font-size: 20px;
+	text-align: center;
+	outline: 0;
+}
+
+button:active {
+	opacity: 1 !important;
 }
 
 .Slide {

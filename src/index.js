@@ -66,39 +66,75 @@ const StatefulSlideContainer = connect(s => {
   return s === undefined ? {x: 0, y: 0} : {x: s.x, y: s.y};
 })(StatefulSlide);
 
+const AnimatedButton = React.createClass({
+  onClick: function(argument) {
+  },
+  getInitialState: function() {
+    return {hover: false};
+  },
+  onMouseOver: function () {
+    this.setState({hover: true});
+  },
+  onMouseOut: function() {
+    this.setState({hover: false});
+  },
+  render: function() {
+    const defaultStyle = {
+      opacity: 1.0,
+      borderRadius: 10
+    };
+    const endStyle = {
+      opacity: this.state.hover ? spring(0.6, {stiffness: 200, damping: 20}) : spring(0.9, {stiffness: 200, damping: 20}),
+      borderRadius: this.state.hover ? spring(40, {stiffness: 200, damping: 20}) : spring(10, {stiffness: 200, damping: 20})
+    };
+    return (
+      <Motion defaultStyle={defaultStyle} style={endStyle}>
+        {interpolatingStyle =>
+          <button style={{}, Object.assign({}, this.props.style, interpolatingStyle)} onClick={this.onClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+            {this.props.children}
+          </button>
+        }
+      </Motion>
+    );
+  }
+});
+
 ReactDOM.render(
   (<Provider store={store}>
     <div>
       <Slide origin={500} end={0} direction={'left'}>
-        <p > Hello slide left </p>
+        <p> Hello slide left </p>
       </Slide>
       <Slide origin={500} end={0} direction={'top'}>
-        <p > Hello slide top </p>
+        <p> Hello slide top </p>
       </Slide>
       <Slide origin={500} end={0} direction={'right'}>
-        <p > Hello slide right </p>
+        <p> Hello slide right </p>
       </Slide>
       <Fade origin={0} end={1} style={'Fade'}>
-        <p > Hello fade in </p>
+        <p> Hello fade in </p>
       </Fade>
       <Fade origin={1} end={0.1} style={'Fade'}>
-        <p > Hello fade out </p>
+        <p> Hello fade out </p>
       </Fade>
       <Fade origin={0} end={1} style={'Fade'}>
         <Slide origin={500} end={0} direction={'left'}>
-          <p > Hello fade slide </p>
+          <p> Hello fade slide </p>
         </Slide>
       </Fade>
       <Fade origin={0} end={1} style={'Fade'}>
         <Slide origin={500} end={0} direction={'left'}>
           <Slide origin={500} end={0} direction={'bottom'}>
-            <p > Hello compound animation </p>
+            <p> Hello compound animation </p>
           </Slide>
         </Slide>
       </Fade>
       <StatefulSlideContainer>
-        <p > Hello redux-connected animation </p>
+        <p> Hello redux-connected animation </p>
       </StatefulSlideContainer>
+      <AnimatedButton>
+        <p style={{opacity: 1}}> Animated button </p>
+      </AnimatedButton>
     </div>
   </Provider>),
   document.getElementById('app')
