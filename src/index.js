@@ -66,19 +66,20 @@ const StatefulSlideContainer = connect(s => {
   return s === undefined ? {x: 0, y: 0} : {x: s.x, y: s.y};
 })(StatefulSlide);
 
-const AnimatedButton = React.createClass({
-  onClick: function(argument) {
-  },
-  getInitialState: function() {
-    return {hover: false};
-  },
-  onMouseOver: function () {
+class AnimatedButton extends React.Component{
+  constructor(props) {
+    super(props)
+    this.onMouseOver = this.onMouseOver.bind(this);
+    this.onMouseOut = this.onMouseOut.bind(this);
+    this.state = {hover: false};
+  }
+  onMouseOver () {
     this.setState({hover: true});
-  },
-  onMouseOut: function() {
+  }
+  onMouseOut() {
     this.setState({hover: false});
-  },
-  render: function() {
+  }
+  render() {
     const defaultStyle = {
       opacity: 1.0,
       borderRadius: 10
@@ -90,14 +91,14 @@ const AnimatedButton = React.createClass({
     return (
       <Motion defaultStyle={defaultStyle} style={endStyle}>
         {interpolatingStyle =>
-          <button style={{}, Object.assign({}, this.props.style, interpolatingStyle)} onClick={this.onClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+          <button style={{}, Object.assign({}, this.props.style, interpolatingStyle)} onClick={this.props.onClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
             {this.props.children}
           </button>
         }
       </Motion>
     );
   }
-});
+}
 
 ReactDOM.render(
   (<Provider store={store}>
