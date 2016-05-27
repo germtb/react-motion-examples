@@ -69,13 +69,13 @@ const StatefulSlideContainer = connect(s => {
 ReactDOM.render(
   (<Provider store={store}>
     <div>
-      <Slide origin={500} end={0} direction={'left'} style={'Slide'}>
+      <Slide origin={500} end={0} direction={'left'}>
         <p > Hello slide left </p>
       </Slide>
-      <Slide origin={500} end={0} direction={'top'} style={'Slide'}>
+      <Slide origin={500} end={0} direction={'top'}>
         <p > Hello slide top </p>
       </Slide>
-      <Slide origin={500} end={0} direction={'right'} style={'Slide'}>
+      <Slide origin={500} end={0} direction={'right'}>
         <p > Hello slide right </p>
       </Slide>
       <Fade origin={0} end={1} style={'Fade'}>
@@ -85,18 +85,18 @@ ReactDOM.render(
         <p > Hello fade out </p>
       </Fade>
       <Fade origin={0} end={1} style={'Fade'}>
-        <Slide origin={500} end={0} direction={'left'} style={'Slide'}>
+        <Slide origin={500} end={0} direction={'left'}>
           <p > Hello fade slide </p>
         </Slide>
       </Fade>
       <Fade origin={0} end={1} style={'Fade'}>
-        <Slide origin={500} end={0} direction={'left'} style={'Slide'}>
-          <Slide origin={500} end={0} direction={'bottom'} style={'Slide'}>
+        <Slide origin={500} end={0} direction={'left'}>
+          <Slide origin={500} end={0} direction={'bottom'}>
             <p > Hello compound animation </p>
           </Slide>
         </Slide>
       </Fade>
-      <StatefulSlideContainer origin={0} direction={'left'} style={'Slide'}>
+      <StatefulSlideContainer>
         <p > Hello redux-connected animation </p>
       </StatefulSlideContainer>
     </div>
