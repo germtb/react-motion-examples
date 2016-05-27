@@ -29,7 +29,7 @@ const Fade = props => {
   return (
     <Motion defaultStyle={defaultStyle} style={endStyle}>
       {interpolatingStyle =>
-        <div style={Object.assign(props.style, interpolatingStyle)}>
+        <div style={{}, Object.assign(props.style, interpolatingStyle)}>
           {props.children}
         </div>
       }
