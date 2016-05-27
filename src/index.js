@@ -43,7 +43,6 @@ const Fade = props => {
 };
 
 const StatefulSlide = props => {
-  debugger;
   const defaultStyle = {
     left: 0,
     bottom: 0
