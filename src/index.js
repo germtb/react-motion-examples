@@ -16,7 +16,8 @@ const Slide = props => {
   return (
     <Motion className={props.className} defaultStyle={defaultStyle} style={endStyle}>
       {interpolatingStyle =>
-        <div className='Slide' style={Object.assign({}, props.style, interpolatingStyle)}>
+        <div className='Slide'
+             style={Object.assign({}, props.style, interpolatingStyle)}>
           {props.children}
         </div>
       }
@@ -54,7 +55,8 @@ const StatefulSlide = props => {
   return (
     <Motion className={props.className} defaultStyle={defaultStyle} style={endStyle}>
       {interpolatingStyle =>
-        <div className='Slide' style={Object.assign({}, props.style ? props.style : {}, interpolatingStyle)}>
+        <div className='Slide'
+             style={Object.assign({}, props.style, interpolatingStyle)}>
           {props.children}
         </div>
       }
@@ -85,13 +87,20 @@ class AnimatedButton extends React.Component{
       borderRadius: 10
     };
     const endStyle = {
-      opacity: this.state.hover ? spring(0.6, {stiffness: 200, damping: 20}) : spring(0.9, {stiffness: 200, damping: 20}),
-      borderRadius: this.state.hover ? spring(40, {stiffness: 200, damping: 20}) : spring(10, {stiffness: 200, damping: 20})
+      opacity: this.state.hover ?
+        spring(0.6, {stiffness: 200, damping: 20}) :
+        spring(0.9, {stiffness: 200, damping: 20}),
+      borderRadius: this.state.hover ?
+        spring(40, {stiffness: 200, damping: 20}) :
+        spring(10, {stiffness: 200, damping: 20})
     };
     return (
       <Motion defaultStyle={defaultStyle} style={endStyle}>
         {interpolatingStyle =>
-          <button style={{}, Object.assign({}, this.props.style, interpolatingStyle)} onClick={this.props.onClick} onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+          <button style={{}, Object.assign({}, this.props.style, interpolatingStyle)}
+                  onClick={this.props.onClick}
+                  onMouseOver={this.onMouseOver}
+                  onMouseOut={this.onMouseOut}>
             {this.props.children}
           </button>
         }
