@@ -42,7 +42,8 @@
     "react-dom": "^0.14.6",
     "react-motion": "^0.4.3",
     "react-redux": "^4.0.6",
-    "redux": "^3.0.5"
+    "redux": "^3.0.5",
+    "color-interpolator": "^1.0.1"
   },
   "repository": {
     "type": "git",

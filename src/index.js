@@ -8,6 +8,8 @@ import {createStore} from 'redux';
 export const store = createStore(reducer);
 import {connect} from 'react-redux';
 
+import {toRGB, colorInterpolation} from 'color-interpolator';
+
 const Slide = props => {
   const defaultStyle = {};
   defaultStyle[props.direction] = props.origin;
@@ -20,6 +22,31 @@ const Slide = props => {
              style={Object.assign({}, props.style, interpolatingStyle)}>
           {props.children}
         </div>
+      }
+    </Motion>
+  );
+};
+
+const SlideColor = props => {
+  const color1 = toRGB(props.origin);
+  const color2 = toRGB(props.end);
+  const defaultStyle = {
+    colorInterpolation: 0
+  };
+  const endStyle = {
+    colorInterpolation: spring(1)
+  };
+  return (
+    <Motion defaultStyle={defaultStyle} style={endStyle}>
+      {t => {
+
+          const color = colorInterpolation(props.origin, props.end, t.colorInterpolation);
+          console.log(t.colorInterpolation);
+          return (
+          <div style={Object.assign({}, props.style, {color: color})}>
+            {props.children}
+          </div>);
+        }
       }
     </Motion>
   );
@@ -121,6 +148,9 @@ ReactDOM.render(
       <Slide origin={500} end={0} direction={'right'}>
         <p> Hello slide right </p>
       </Slide>
+      <SlideColor origin='#AAff00' end='#ff00AA'>
+        <p> Hello slide color </p>
+      </SlideColor>
       <Fade origin={0} end={1} style={'Fade'}>
         <p> Hello fade in </p>
       </Fade>
