@@ -8,7 +8,7 @@ import {createStore} from 'redux';
 export const store = createStore(reducer);
 import {connect} from 'react-redux';
 
-import {toRGB, colorInterpolation} from 'color-interpolator';
+import {colorInterpolation} from 'color-interpolator';
 
 const Slide = props => {
   const defaultStyle = {};
@@ -28,8 +28,6 @@ const Slide = props => {
 };
 
 const SlideColor = props => {
-  const color1 = toRGB(props.origin);
-  const color2 = toRGB(props.end);
   const defaultStyle = {
     colorInterpolation: 0
   };
