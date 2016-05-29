@@ -1,5 +1,5 @@
 {
-  "name": "react-template",
+  "name": "react-motion-examples",
   "version": "1.0.0",
   "description": "React motion examples",
   "main": "index.js",
@@ -47,6 +47,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/germtb/react-redux-template"
+    "url": "https://github.com/germtb/react-motion-examples"
   }
 }
