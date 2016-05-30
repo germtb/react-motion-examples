@@ -37,9 +37,7 @@ const SlideColor = props => {
   return (
     <Motion defaultStyle={defaultStyle} style={endStyle}>
       {t => {
-
           const color = colorInterpolation(props.origin, props.end, t.colorInterpolation);
-          console.log(t.colorInterpolation);
           return (
           <div style={Object.assign({}, props.style, {color: color})}>
             {props.children}
@@ -60,7 +58,7 @@ const Fade = props => {
   return (
     <Motion defaultStyle={defaultStyle} style={endStyle}>
       {interpolatingStyle =>
-        <div style={{}, Object.assign(props.style, interpolatingStyle)}>
+        <div style={Object.assign({}, props.style, interpolatingStyle)}>
           {props.children}
         </div>
       }
@@ -108,27 +106,32 @@ class AnimatedButton extends React.Component{
   }
   render() {
     const defaultStyle = {
-      opacity: 1.0,
-      borderRadius: 10
+      borderRadius: 10,
+      t: 0,
+      opacity: 0.8
     };
     const endStyle = {
-      opacity: this.state.hover ?
-        spring(0.6, {stiffness: 200, damping: 20}) :
-        spring(0.9, {stiffness: 200, damping: 20}),
       borderRadius: this.state.hover ?
         spring(40, {stiffness: 200, damping: 20}) :
-        spring(10, {stiffness: 200, damping: 20})
+        spring(10, {stiffness: 200, damping: 20}),
+      t: this.state.hover ?
+        spring(1, {stiffness: 200, damping: 20}) :
+        spring(0, {stiffness: 200, damping: 20}),
+      opacity: 0.8
     };
     return (
       <Motion defaultStyle={defaultStyle} style={endStyle}>
-        {interpolatingStyle =>
-          <button style={{}, Object.assign({}, this.props.style, interpolatingStyle)}
-                  onClick={this.props.onClick}
-                  onMouseOver={this.onMouseOver}
-                  onMouseOut={this.onMouseOut}>
-            {this.props.children}
-          </button>
-        }
+        {interpolatingStyle => {
+          const color = colorInterpolation(this.props.colorOrigin, this.props.colorEnd, interpolatingStyle.t);
+          return (
+            <button style={Object.assign({background: color }, this.props.style, interpolatingStyle)}
+                    onClick={this.props.onClick}
+                    onMouseOver={this.onMouseOver}
+                    onMouseOut={this.onMouseOut}>
+              {this.props.children}
+            </button>
+          );
+        }}
       </Motion>
     );
   }
@@ -170,7 +173,7 @@ ReactDOM.render(
       <StatefulSlideContainer>
         <p> Hello redux-connected animation </p>
       </StatefulSlideContainer>
-      <AnimatedButton>
+      <AnimatedButton colorOrigin='#AABB00' colorEnd='FF0099'>
         <p style={{opacity: 1}}> Animated button </p>
       </AnimatedButton>
     </div>
